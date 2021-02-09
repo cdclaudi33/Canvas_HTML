@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Canvas</title>
+
+	<script type="text/javascript">
+
+		window.onload = function(){
+			var dateCreatedBeforeRendering = new Date().getTime(); 
+			console.log("dateCreatedBeforeRendering.: "+dateCreatedBeforeRendering);
+
+			var canvas = document.getElementById("myCanvas");
+			var c = canvas.getContext("2d");
+			var rad=20;
+
+			canvas.width=window.innerWidth;
+			canvas.height=window.innerHeight;
+
+			c.rect(0, 0, canvas.width, canvas.height);
+      		var grd = c.createLinearGradient(1000, 100, canvas.width, canvas.height);
+      		grd.addColorStop(0, 'white');
+      		grd.addColorStop(1, 'white');
+
+      		c.fillStyle = grd;
+      		c.fill();
+
+      		var g1 = c.createRadialGradient(1000, 210, 200, 900, 400, 700);
+      		g1.addColorStop(0, 'white');
+      		g1.addColorStop(1, 'black');
+
+      		c.fillStyle = g1;
+
+ 
+
+			for (var i=0; i<60; i++)
+			{
+				var x=0;
+				var y=i*4*rad;
+				c.moveTo(x,y);
+				
+				for (var j=0; j<60; j++)
+				{
+					c.beginPath();
+					var x=j*4*rad;
+					c.arc(x,y,rad,Math.PI*2,false);
+					c.fill();
+					var y=i*4*rad;
+					c.arc(x,y,rad,Math.PI*2,false);
+					c.fill();
+					
+			}
+
+			}
+
+			for (var i=0.5; i<60; i++)
+			{
+				var x=0;
+				var y=i*4*rad;
+				c.moveTo(x,y);
+				
+				for (var j=0.5; j<60; j++)
+				{
+					c.beginPath();
+					var x=j*4*rad;
+					c.arc(x,y,rad,Math.PI*2,false);
+					c.fill();
+					var y=i*4*rad;
+					c.arc(x,y,rad,Math.PI*2,false);
+					c.fill();
+
+		
+				}
+
+			}
+ 
+      		c.shadowBlur = 30; 
+        	c.shadowColor = "white"; 
+			c.strokeStyle = "white";
+			c.lineWidth=50;
+			c.stroke();
+
+
+			var dateCreatedAfterRendering = new Date().getTime(); 
+			console.log("dateCreatedAfterRendering: "+dateCreatedAfterRendering);
+			var renderTime = dateCreatedAfterRendering- dateCreatedBeforeRendering;
+			console.log("renderTime: "+renderTime);
+			
+			var clickEventHandler=function(e){
+c.style.transform='rotate(180pdeg)';	
+}
+		};
+
+
+	</script>
+	<style type="text/css">
+canvas{
+  margin: 0;
+  padding: 0;
+}
+body
+{margin: 0;
+padding: 0;}
+	</style>
+
+</head>
+<body>
+	<canvas id="myCanvas">
+		
+	</canvas>
+</body>
+</html>
